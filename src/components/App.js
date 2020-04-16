@@ -11,6 +11,10 @@ const KEY = "AIzaSyB6SaSa1A1uUl5qIEQOn9gVd5rfrw05GaI";
 export default class App extends Component {
   state = { videos: [], selectedVideo: null };
 
+  componentDidMount() {
+    this.onTermSubmit("building");
+  }
+
   onTermSubmit = async (term) => {
     const response = await youtube.get("/search", {
       params: {
