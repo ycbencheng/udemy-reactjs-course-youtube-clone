@@ -8,7 +8,7 @@ import VideoList from "./VideoList";
 const KEY = "AIzaSyB6SaSa1A1uUl5qIEQOn9gVd5rfrw05GaI";
 
 export default class App extends Component {
-  state = { videos: [] };
+  state = { videos: [], selectedVideo: null };
 
   onTermSubmit = async (term) => {
     const response = await youtube.get("/search", {
@@ -24,11 +24,18 @@ export default class App extends Component {
     this.setState({ videos: response.data.items });
   };
 
+  onVideoSelect = (video) => {
+    console.log("From the app comp", video);
+  };
+
   render() {
     return (
       <div class="ui container">
         <SearchBar onFormSubmit={this.onTermSubmit} />
-        <VideoList videos={this.state.videos} />
+        <VideoList
+          videos={this.state.videos}
+          onVideoSelect={this.onVideoSelect}
+        />
         Found {this.state.videos.length} videos.
       </div>
     );
